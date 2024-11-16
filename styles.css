@@ -18,7 +18,8 @@ body {
 
 /* Container */
 .container {
-    background-color: #fff;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -30,7 +31,6 @@ body {
 /* Title */
 h1 {
     font-size: 2.5em;
-    color: #4CAF50;
     margin-bottom: 20px;
     font-weight: 700;
 }
@@ -47,15 +47,15 @@ input[type="text"], input[type="date"], select {
 }
 
 input[type="text"]:focus, input[type="date"]:focus, select:focus {
-    border-color: #4CAF50;
+    border-color: #fff;
     outline: none;
 }
 
 /* Buttons */
 button {
     padding: 12px 25px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #fff;
+    color: #4CAF50;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -65,10 +65,16 @@ button {
 
 button:hover {
     background-color: #45a049;
+    color: white;
 }
 
 button:active {
     transform: scale(0.98);
+}
+
+/* Longer Add Task Button */
+#addTaskBtn {
+    width: 100%; /* Make it stretch to full width */
 }
 
 /* Task Section */
@@ -121,13 +127,16 @@ button:active {
 /* Action Buttons */
 .action-buttons {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
 .action-buttons button {
     padding: 10px 20px;
     background-color: #007BFF;
+    width: 48%; /* Set width for two columns */
+    margin-bottom: 10px; /* Spacing between rows */
 }
 
 .action-buttons button:hover {
@@ -191,5 +200,9 @@ button:active {
 
     .task-card p {
         font-size: 1rem;
+    }
+
+    .action-buttons button {
+        width: 100%; /* Full width on small screens */
     }
 }
