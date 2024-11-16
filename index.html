@@ -3,38 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Task Management Application</title>
 </head>
 <body>
     <div class="container">
-        <h1>Task Management Application</h1>
+        <header>
+            <h1>Task Manager</h1>
+        </header>
 
-        <!-- Task Input Section -->
-        <div class="form-group">
-            <input type="text" id="task" placeholder="Task Name" required>
-            <input type="text" id="description" placeholder="Description" required>
-            <input type="date" id="dueDate" required>
-            <input type="text" id="category" placeholder="Category" required>
-            <button id="addTaskBtn">Add Task</button>
-        </div>
+        <section class="task-form">
+            <h2>Add Task</h2>
+            <form id="taskForm">
+                <label for="task">Task:</label>
+                <input type="text" id="task" required><br>
 
-        <!-- Task Management Actions -->
-        <div class="task-actions">
-            <button id="viewTasksBtn">View All Tasks</button>
-            <button id="viewCompletedBtn">View Completed Tasks</button>
-            <button id="viewTasksByCategoryBtn">View Tasks by Category</button>
-            <button id="latestDeadlineTaskBtn">Latest Deadline Task</button>
-            <button id="clearTasksBtn">Clear All Tasks</button>
-            <button id="showProgressBtn">Show Progress</button>
-            <button id="undoCompletedBtn">Undo Completed Task</button>
-        </div>
+                <label for="description">Description:</label>
+                <textarea id="description" required></textarea><br>
 
-        <!-- Display Sections -->
-        <div id="tasksContainer" class="tasks-container"></div>
-        <div id="completedTasksContainer" class="tasks-container"></div>
-        <div id="latestTaskContainer" class="tasks-container"></div>
-        <div id="progressContainer" class="tasks-container"></div>
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate" required><br>
+
+                <label for="category">Category:</label>
+                <input type="text" id="category" required><br>
+
+                <button type="submit">Add Task</button>
+            </form>
+        </section>
+
+        <section class="task-list">
+            <h2>Task List</h2>
+            <ul id="taskList">
+                <!-- Tasks will appear here -->
+            </ul>
+        </section>
+
+        <section class="completed-tasks">
+            <h2>Completed Tasks</h2>
+            <ul id="completedTasks">
+                <!-- Completed tasks will appear here -->
+            </ul>
+        </section>
+
+        <footer>
+            <button id="clearAll">Clear All Tasks</button>
+        </footer>
     </div>
 
     <script src="script.js"></script>
