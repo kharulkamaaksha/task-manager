@@ -25,7 +25,7 @@ class TaskQueue {
         this.rear = null;
         this.completedHead = null;
         this.completedCount = 0;
-        this.totalCount = 0; // Track the total number of tasks
+        this.totalCount = 0;
     }
 
     isEmpty() {
@@ -56,7 +56,7 @@ class TaskQueue {
             let current = this.front;
             let prev = null;
 
-            while (current !== null && current.dueDate <= newNode.dueDate) {
+            while (current !== null && new Date(current.dueDate) <= new Date(newNode.dueDate)) {
                 prev = current;
                 current = current.next;
             }
@@ -153,8 +153,8 @@ class TaskQueue {
         let curr = this.front;
         while (curr !== null) {
             if (curr.task === taskName) {
-                this.deleteTask(taskName);
-                this.enqueue(newTask, newDescription, newDueDate, newCategory);
+                this.deleteTask(taskName); // Remove the old task
+                this.enqueue(newTask, newDescription, newDueDate, newCategory); // Add the updated task
                 console.log("Task updated successfully.");
                 return;
             }
@@ -261,123 +261,25 @@ class TaskQueue {
             return;
         }
         console.log("Clearing all tasks...");
-        while (!this.isEmpty()) this.dequeueHighestPriority();
-        console.log("All tasks cleared successfully.");
+        while (!this.isEmpty()) {
+            this.dequeueHighestPriority();
+        }
+        this.completedHead = null;
+        this.completedCount = 0;
+        console.log("All tasks cleared.");
     }
 }
 
-// Main function
-function main() {
-    const queue = new TaskQueue();
-    let choice;
-
-    do {
-        console.log("1. Add Task");
-        console.log("2. View Tasks");
-        console.log("3. Complete Task");
-        console.log("4. Undo Completed Task");
-        console.log("5. Edit Task");
-        console.log("6. Delete Task");
-        console.log("7. View Completed Tasks");
-        console.log("8. Show Progress");
-        console.log("9. Dequeue Highest Priority Task");
-        console.log("10. View Tasks by Category");
-        console.log("11. View Latest Deadline Task");
-        console.log("12. Clear All Tasks");
-        console.log("0. Exit");
-
-        choice = prompt("Enter your choice: ");
-
-        switch (parseInt(choice)) {
-            case 1: {
-                const task = prompt("Enter task: ");
-                const description = prompt("Enter description: ");
-                let dueDate;
-                while (true) {
-                    dueDate = prompt("Enter due date (YYYY-MM-DD): ");
-                    const today = new Date();
-                    const taskDate = new Date(dueDate);
-
-                    if (
-                        !isNaN(taskDate) &&
-                        taskDate >= today &&
-                        taskDate <= new Date(today.getFullYear() + 1, today.getMonth(), today.getDate())
-                    ) {
-                        break;
-                    }
-
-                    console.log(`Invalid due date: ${dueDate}. Please enter a valid future date within one year.`);
-                }
-                const category = prompt("Enter category: ");
-                queue.enqueue(task, description, dueDate, category);
-                break;
-            }
-
-            case 2:
-                queue.viewTasks();
-                break;
-
-            case 3: {
-                const taskName = prompt("Enter task to mark as complete: ");
-                queue.markComplete(taskName);
-                break;
-            }
-
-            case 4:
-                queue.undoCompleted();
-                break;
-
-            case 5: {
-                const taskName = prompt("Enter task to edit: ");
-                const newTask = prompt("Enter new task: ");
-                const newDescription = prompt("Enter new description: ");
-                const newDueDate = prompt("Enter new due date (YYYY-MM-DD): ");
-                const newCategory = prompt("Enter new category: ");
-                queue.editTask(taskName, newTask, newDescription, newDueDate, newCategory);
-                break;
-            }
-
-            case 6: {
-                const taskName = prompt("Enter task to delete: ");
-                queue.deleteTask(taskName);
-                break;
-            }
-
-            case 7:
-                queue.viewCompletedTasks();
-                break;
-
-            case 8:
-                queue.showProgress();
-                break;
-
-            case 9:
-                queue.dequeueHighestPriority();
-                break;
-
-            case 10: {
-                const category = prompt("Enter category to view tasks: ");
-                queue.viewTasksByCategory(category);
-                break;
-            }
-
-            case 11:
-                queue.displayLatestDeadlineTask();
-                break;
-
-            case 12:
-                queue.clearAllTasks();
-                break;
-
-            case 0:
-                console.log("Exiting...");
-                break;
-
-            default:
-                console.log("Invalid choice. Please try again.");
-        }
-    } while (choice !== "0");
-}
-
-// Start the program
-main();
+// Example usage:
+const taskQueue = new TaskQueue();
+taskQueue.enqueue("Task 1", "Description 1", "2024-12-01", "Work");
+taskQueue.enqueue("Task 2", "Description 2", "2024-11-15", "Personal");
+taskQueue.enqueue("Task 3", "Description 3", "2025-01-01", "Work");
+taskQueue.viewTasks();
+taskQueue.dequeueHighestPriority();
+taskQueue.viewTasks();
+taskQueue.markComplete("Task 3");
+taskQueue.viewCompletedTasks();
+taskQueue.undoCompleted();
+taskQueue.viewTasks();
+taskQueue.clearAllTasks();
