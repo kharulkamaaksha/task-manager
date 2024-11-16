@@ -35,22 +35,25 @@ function createTaskHTML(task, isCompleted = false) {
     return taskElement;
 }
 
-// Add new task
+// Add new task with date validation
 addTaskBtn.addEventListener('click', () => {
     const taskName = taskInput.value.trim();
     const taskDescription = descriptionInput.value.trim();
     const taskDueDate = dueDateInput.value;
     const taskCategory = categoryInput.value.trim();
 
-    // Validate date (can't be in the past)
-    const currentDate = new Date().toISOString().split('T')[0];
-    if (taskDueDate < currentDate) {
-        alert('Due date cannot be in the past!');
+    // Validate if all fields are filled
+    if (!taskName || !taskDescription || !taskDueDate || !taskCategory) {
+        alert('Please fill in all fields');
         return;
     }
 
-    if (!taskName || !taskDescription || !taskDueDate || !taskCategory) {
-        alert('Please fill in all fields');
+    // Validate date (can't be in the past)
+    const currentDate = new Date();
+    const currentDateString = currentDate.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+
+    if (taskDueDate < currentDateString) {
+        alert('Due date cannot be in the past!');
         return;
     }
 
@@ -150,24 +153,18 @@ clearTasksBtn.addEventListener('click', () => {
 // Show progress (percentage of tasks completed)
 showProgressBtn.addEventListener('click', () => {
     const totalTasks = tasks.length + completedTasks.length;
-    if (totalTasks === 0) {
-        alert('No tasks to show progress!');
-        return;
-    }
-
-    const completedPercentage = (completedTasks.length / totalTasks) * 100;
-    alert(`Completed tasks: ${completedPercentage.toFixed(2)}%`);
+    const completedPercentage = totalTasks ? (completedTasks.length / totalTasks) * 100 : 0;
+    alert(`Progress: ${completedPercentage.toFixed(2)}%`);
 });
 
-// Undo last completed task
+// Undo completed task
 undoCompletedBtn.addEventListener('click', () => {
-    if (completedTasks.length === 0) {
-        alert('No completed tasks to undo!');
-        return;
-    }
+    if (completedTasks.length === 0) return;
 
     const lastCompletedTask = completedTasks.pop();
     tasks.push(lastCompletedTask);
     renderTasks();
 });
 
+// Initial render
+renderTasks();
