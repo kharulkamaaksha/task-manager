@@ -18,14 +18,15 @@ body {
 
 /* Container */
 .container {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
+    background-color: white; /* White background */
+    color: #333; /* Dark text */
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 800px;
     text-align: center;
+    border: 2px solid #4CAF50; /* Green border */
 }
 
 /* Title */
@@ -47,15 +48,15 @@ input[type="text"], input[type="date"], select {
 }
 
 input[type="text"]:focus, input[type="date"]:focus, select:focus {
-    border-color: #fff;
+    border-color: #4CAF50; /* Green border when focused */
     outline: none;
 }
 
 /* Buttons */
 button {
     padding: 12px 25px;
-    background-color: #fff;
-    color: #4CAF50;
+    background-color: #4CAF50; /* Green background */
+    color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
