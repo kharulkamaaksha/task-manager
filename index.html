@@ -4,45 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Task Manager</h1>
-        </header>
-
-        <!-- Task Form Section -->
-        <section class="form-section">
+        <h1>Task Manager</h1>
+        
+        <!-- Input Fields -->
+        <div class="task-input">
             <input type="text" id="task" placeholder="Task Name">
-            <input type="text" id="description" placeholder="Task Description">
+            <input type="text" id="description" placeholder="Description">
             <input type="date" id="dueDate">
             <input type="text" id="category" placeholder="Category">
             <button id="addTaskBtn">Add Task</button>
-        </section>
-
-        <!-- Controls Section -->
-        <section class="controls">
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
             <button id="viewTasksBtn">View All Tasks</button>
             <button id="viewCompletedBtn">View Completed Tasks</button>
-            <button id="viewTasksByCategoryBtn">View By Category</button>
+            <button id="viewTasksByCategoryBtn">View Tasks by Category</button>
             <button id="latestDeadlineTaskBtn">Latest Deadline Task</button>
-        </section>
-
-        <!-- Task Containers -->
-        <section class="task-container">
-            <div id="tasksContainer" class="task-list"></div>
-            <div id="completedTasksContainer" class="task-list"></div>
-            <div id="latestTaskContainer" class="task-list"></div>
-        </section>
-
-        <!-- Progress & Clear Section -->
-        <section class="progress-section">
-            <button id="showProgressBtn">Show Progress</button>
             <button id="clearTasksBtn">Clear All Tasks</button>
-            <button id="undoCompletedBtn">Undo Last Completed Task</button>
-        </section>
+            <button id="showProgressBtn">Show Progress</button>
+            <button id="undoCompletedBtn">Undo Completed Task</button>
+        </div>
+        
+        <!-- Task Containers -->
+        <div id="tasksContainer"></div>
+        <div id="completedTasksContainer" style="display: none;"></div>
+        <div id="latestTaskContainer" style="display: none;"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
