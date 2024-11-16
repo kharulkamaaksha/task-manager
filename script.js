@@ -42,6 +42,13 @@ addTaskBtn.addEventListener('click', () => {
     const taskDueDate = dueDateInput.value;
     const taskCategory = categoryInput.value.trim();
 
+    // Validate date (can't be in the past)
+    const currentDate = new Date().toISOString().split('T')[0];
+    if (taskDueDate < currentDate) {
+        alert('Due date cannot be in the past!');
+        return;
+    }
+
     if (!taskName || !taskDescription || !taskDueDate || !taskCategory) {
         alert('Please fill in all fields');
         return;
@@ -143,18 +150,24 @@ clearTasksBtn.addEventListener('click', () => {
 // Show progress (percentage of tasks completed)
 showProgressBtn.addEventListener('click', () => {
     const totalTasks = tasks.length + completedTasks.length;
-    const completedPercentage = totalTasks ? (completedTasks.length / totalTasks) * 100 : 0;
-    alert(`Progress: ${completedPercentage.toFixed(2)}%`);
+    if (totalTasks === 0) {
+        alert('No tasks to show progress!');
+        return;
+    }
+
+    const completedPercentage = (completedTasks.length / totalTasks) * 100;
+    alert(`Completed tasks: ${completedPercentage.toFixed(2)}%`);
 });
 
-// Undo completed task
+// Undo last completed task
 undoCompletedBtn.addEventListener('click', () => {
-    if (completedTasks.length === 0) return;
+    if (completedTasks.length === 0) {
+        alert('No completed tasks to undo!');
+        return;
+    }
 
     const lastCompletedTask = completedTasks.pop();
     tasks.push(lastCompletedTask);
     renderTasks();
 });
 
-// Initial render
-renderTasks();
