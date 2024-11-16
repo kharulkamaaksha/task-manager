@@ -1,67 +1,65 @@
-/* Body styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f1f1f1;
+/* Global Styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    color: #333;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-/* Container for the Task Manager */
+/* Container */
 .container {
-    width: 90%;
-    max-width: 900px;
-    background-color: #ffffff;
+    background-color: #fff;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
     text-align: center;
 }
 
 /* Title */
 h1 {
     font-size: 2.5em;
-    margin-bottom: 20px;
     color: #4CAF50;
-    font-weight: bold;
+    margin-bottom: 20px;
+    font-weight: 700;
 }
 
-/* Input fields and buttons container */
-.task-input, .action-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-/* Input fields styling */
-input[type="text"], input[type="date"] {
+/* Form Elements */
+input[type="text"], input[type="date"], select {
+    width: 100%;
     padding: 12px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-    width: 220px;
-    transition: border-color 0.3s ease;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    transition: border 0.3s ease;
 }
 
-input[type="text"]:focus, input[type="date"]:focus {
+input[type="text"]:focus, input[type="date"]:focus, select:focus {
     border-color: #4CAF50;
+    outline: none;
 }
 
-/* Add Task Button */
+/* Buttons */
 button {
-    padding: 12px 24px;
+    padding: 12px 25px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: 1.1rem;
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
@@ -73,19 +71,25 @@ button:active {
     transform: scale(0.98);
 }
 
-/* Task card styling */
-.task {
-    background-color: #f9f9f9;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    transition: transform 0.3s ease;
+/* Task Section */
+.tasks-section, .completed-tasks-section, .latest-task-section {
+    display: none;
+    margin-top: 30px;
 }
 
-.task:hover {
-    transform: scale(1.03);
+.task-card {
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .completed-task {
@@ -94,8 +98,35 @@ button:active {
     opacity: 0.7;
 }
 
+.task-card h3 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.3rem;
+}
+
+.task-card p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.task-card button {
+    background-color: #2196F3;
+    margin-top: 10px;
+}
+
+.task-card button:hover {
+    background-color: #1976D2;
+}
+
 /* Action Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
 .action-buttons button {
+    padding: 10px 20px;
     background-color: #007BFF;
 }
 
@@ -103,42 +134,7 @@ button:active {
     background-color: #0056b3;
 }
 
-/* Containers for Tasks */
-#tasksContainer, #completedTasksContainer, #latestTaskContainer {
-    margin-top: 20px;
-}
-
-/* Task Category */
-h3 {
-    margin-bottom: 5px;
-    color: #333;
-}
-
-p {
-    margin: 5px 0;
-    font-size: 1.1em;
-    color: #555;
-}
-
-button {
-    font-size: 1em;
-    padding: 10px 20px;
-    background-color: #2196F3;
-    border-radius: 5px;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #1976D2;
-}
-
-/* Buttons container */
-.action-buttons {
-    gap: 25px;
-}
-
-/* Modal for error messages */
+/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -155,13 +151,13 @@ button:hover {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    max-width: 500px;
+    max-width: 400px;
     width: 80%;
     text-align: center;
 }
 
 .modal-content p {
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: #333;
 }
 
@@ -177,4 +173,23 @@ button:hover {
 
 .modal-button:hover {
     background-color: #45a049;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .task-card {
+        padding: 15px;
+    }
+
+    .task-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .task-card p {
+        font-size: 1rem;
+    }
 }
